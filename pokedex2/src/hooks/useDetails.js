@@ -1,45 +1,23 @@
-// import axios from "axios"
-// import { useEffect, useState } from "react"
-// import { BASE_URL } from "../constant/url"
-// import usePokemon from "./usePokemon"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { BASE_URL } from "../constant/url"
 
-// const useDetails = () => {
-//     const [pokeDetails,setPokeDetails] = useState([])
-//     const pokemon = usePokemon()
+const useDetails = () => {
+    const [pokeDetails,setPokeDetails] = useState([])
     
-//     const getPokeDetail = (name) => {
-//         const detailList = []
+    const getPokeDetail = (name) => {
+        axios
+        .get(`${BASE_URL}/${name}`)
+        .then((response) => {
+            setPokeDetails(response.data)
+        })
+        .catch((err) => {
+            alert(err.message)
+        })
+    } 
 
-//         name.forEach((poke) => {
+   return [pokeDetails, getPokeDetail]
 
-//             if(poke.name){
+}
 
-//                 axios
-//                 .get(`${BASE_URL}/${poke.name}`)
-//                 .then((response) => {
-//                     detailList.push(response.data)
-//                     if(detailList.length === 20){
-//                         const pokeOrder = detailList.sort((a,b) => {
-//                             return a.id - b.id
-//                         })
-//                         setPokeDetails(pokeOrder)
-//                     }
-//                 })
-//                 .catch((err) => {
-//                     alert(err.message)
-//                 })
-//             }
-//         })
-//     }
-
-//     useEffect(() => {
-//         getPokeDetail(pokemon)
-
-
-//     }, [pokemon])
-
-//    return [pokeDetails]
-
-// }
-
-// export default useDetails
+export default useDetails
