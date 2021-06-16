@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import useDetails from '../hooks/useDetails'
+import { loadingPage } from '../components/loading/loading'
+
 
 
 const FakeCard = styled.div`
@@ -68,11 +70,12 @@ const ScreenDetails = (props) => {
         <Div>  
             <h1>{pokeDetails.name && pokeDetails.name}</h1>
             <CardArea imageCard> 
+                <imageCard/>
                 <FakeCard>
-                    <img src = {pokeDetails.sprites && pokeDetails.sprites.front_default} />
+                    {pokeDetails.sprites? (<img src = {pokeDetails.sprites.front_default}/>):loadingPage()}
                 </FakeCard>
                 <FakeCard>
-                    <img src = {pokeDetails.sprites && pokeDetails.sprites.back_default} />
+                    {pokeDetails.sprites? (<img src = {pokeDetails.sprites.back_default}/>):loadingPage()}
                 </FakeCard>
             </CardArea>
             <CardArea>
