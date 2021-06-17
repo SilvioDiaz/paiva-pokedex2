@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Header } from '../components/header/header'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import ScreenPokemon from '../screens/screenPokemon';
 import { goTo } from '../router/Coordinator';
 

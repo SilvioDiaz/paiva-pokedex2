@@ -6,10 +6,11 @@ const PokeCard = (props) => {
         <CardContainer>
             <ImgContainer>
             <PokeImg
-            src= {props.pokeImg}
-            alt= {props.name}
+                src= {props.pokeImg}
+                alt= {props.name}
              />
             </ImgContainer>
+            
             <ButtonContainer>
                 <button>Adicionar a Pokedex</button>
                 <button onClick = {props.details}>Detalhes</button>

@@ -8,17 +8,22 @@ const GlobalState = (props) => {
     const [pokemon, setPokemon] = useState([])
     const [pokeDetails, setPokeDetails] = useState([])
     const [pokedex, setPokedex] = useState([])
+    const [pageNumber,setPageNumber] = useState(0)
 
     useEffect(() => {
-        getPokemon()
-    }, [])
+        getPokemon(pageNumber)
+    }, [pageNumber])
 
-    const getPokemon = () => {
+    const getPokemon = (pageNumber) => {
+        let offset = 0
+        if(pageNumber > 1){
+            offset = (20*pageNumber) -20
+            console.log(offset)
+        }
         axios
-            .get(`${BASE_URL}?limit=20&offset=0`)
+            .get(`${BASE_URL}?limit=20&offset=${offset}`)
             .then((response) => {
                 setPokemon(response.data.results)
-                console.log(pokemon)
             })
             .catch((err) => {
                 alert(err.message)
@@ -63,7 +68,7 @@ const GlobalState = (props) => {
                 .get(`${BASE_URL}/${poke.name}`)
                 .then((response) => {
                     detailList.push(response.data)
-                    if(detailList.length === 20){
+                    if(detailList.length === name.length){
                         const pokeOrder = detailList.sort((a,b) => {
                             return a.id - b.id
                         })
@@ -84,7 +89,7 @@ const GlobalState = (props) => {
 
 
     return (
-        <GlobalStateContext.Provider value={{ pokeDetails, pokedex, setPokedex }} >
+        <GlobalStateContext.Provider value={{pokeDetails, pokedex, setPokedex,setPageNumber }} >
             {props.children}
         </GlobalStateContext.Provider>
     )

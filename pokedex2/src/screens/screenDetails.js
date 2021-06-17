@@ -1,46 +1,22 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import styled from 'styled-components'
 import useDetails from '../hooks/useDetails'
-import { loadingPage } from '../components/loading/loading'
+import ImageCard from "../components/PokeCard/ImageCard"
+import DetailsCard from '../components/PokeCard/detailsCard.'
+import {CardArea,Div} from "./style"
+import loading from "../Image/loading.gif"
 
-
-
-const FakeCard = styled.div`
-    background-color: red;
-    border: 1px black solid;
-    width:100%;
-    height:100%;
-    margin:1rem;
-`
-
-const Div = styled.div`
-    display:flex;
-    justify-content: space-between;
-
-    height:100%;
-
-    padding:2rem;
-`
-
-const CardArea = styled.div`
-    width:${props => props.imageCard ? "20%": "30%"};
-    height:100%;
-`
 
 
 const ScreenDetails = (props) => {
+    
     const [pokeDetails,getPokeDetail] = useDetails()
 
     const params = useParams()
-    console.log(params)
 
     useEffect(() => {
         getPokeDetail(params.name)
     }, [])
-
-    console.log(pokeDetails)
-
 
     const statsList = pokeDetails.stats && pokeDetails.stats.map((stat) => {
         return(
@@ -61,38 +37,33 @@ const ScreenDetails = (props) => {
        
     })
 
-    if(pokeDetails.length > 0){
-        alert('oi')
-    }
-
-
     return (
         <Div>  
             <h1>{pokeDetails.name && pokeDetails.name}</h1>
-            <CardArea imageCard> 
-                <imageCard/>
-                <FakeCard>
-                    {pokeDetails.sprites? (<img src = {pokeDetails.sprites.front_default}/>):loadingPage()}
-                </FakeCard>
-                <FakeCard>
-                    {pokeDetails.sprites? (<img src = {pokeDetails.sprites.back_default}/>):loadingPage()}
-                </FakeCard>
+
+            <CardArea imageCard>
+                    <ImageCard id="front" img = {pokeDetails.sprites? (pokeDetails.sprites.front_default):loading} />
+                    <ImageCard id="front" img = {pokeDetails.sprites? (pokeDetails.sprites.back_default):loading} />
+
             </CardArea>
+
             <CardArea>
-            <FakeCard id = "stats">
-                <h1>Stats</h1>
-                {statsList}
-            </FakeCard>
+                <DetailsCard
+                    titulo = "Stats"
+                    content = {statsList}
+                />
             </CardArea>
+
             <CardArea>
-                <FakeCard>
-                    <h1>Tipos</h1>
-                    {typeList}
-                </FakeCard>
-                <FakeCard>
-                    <h1>Moves</h1>
-                    {moveList}
-                </FakeCard>
+                <DetailsCard
+                    titulo = "Tipos"
+                    content = {typeList}
+                    detailType = "tipo"
+                />
+                <DetailsCard
+                    titulo = "Moves"
+                    content = {moveList}
+                />
             </CardArea>
         </Div>
         
