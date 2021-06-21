@@ -7,7 +7,7 @@ Nome dos integrantes:
 - Silvio Gabriel Pimentel Dias: Sistema de batalha e layout para PC e Mobile da batalha, resgate de dados da API, Paginação, parte do Layout
  
 
-Link do Surge: http://obsolete-stranger.surge.sh/
+Link do Surge: https://ragged-crib.surge.sh/
 
 O que funciona:
 
